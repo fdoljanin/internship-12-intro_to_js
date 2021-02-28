@@ -25,7 +25,7 @@ function addDeveloperAction() {
 
 function editDeveloperAction() {
     let developerEdited = new Object();
-    let message = "Choose developer index:\n" + printDevelopers();
+    let message = "Choose developer index:\n" + printDevelopers(developers);
 
     let developerToEdit = getArrayMember(message, developers);
     if (developerToEdit === null) return;
@@ -52,8 +52,18 @@ function editDeveloperAction() {
     editDeveloper(developerToEdit.id, developerEdited);
 }
 
+function deleteDeveloperAction() {
+    let message = "Choose developer index:\n" + printDevelopers(developers);
+
+    let developerToDelete = getArrayMember(message, developers);
+    if (developerToDelete === null) return;
+
+    if (confirm(`Are you sure you want to delete ${developerToDelete.name}?`))
+        deleteDeveloper(developerToDelete.id);
+}
+
 function addDevLanguageAction() {
-    let message = "Choose developer index:\n" + printDevelopers();
+    let message = "Choose developer index:\n" + printDevelopers(developers);
 
     let developerToEdit = getArrayMember(message, developers);
     if (developerToEdit === null) return;
@@ -73,7 +83,7 @@ function addDevLanguageAction() {
 }
 
 function deleteDevLanguageAction(){
-    let message = "Choose developer index:\n" + printDevelopers();
+    let message = "Choose developer index:\n" + printDevelopers(developers);
 
     let developerToEdit = getArrayMember(message, developers);
     if (developerToEdit === null) return;

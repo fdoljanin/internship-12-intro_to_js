@@ -18,12 +18,12 @@ function editCompany(id, newName) {
 }
 
 function deleteCompany(id) {
-    companies = companies.filter((company) => company.id !== id);
-
-    for (developer in developers) {
-        if (developer.company.id == id) {
+    for (developer of developers) {
+        if (developer.company?.id == id) {
             developer.company = null;
             developer.status = developerStatus.UNEMPLOYED;
         }
     }
+
+    companies = companies.filter((company) => company.id !== id);
 }

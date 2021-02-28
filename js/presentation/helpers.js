@@ -17,10 +17,10 @@ function printCompanies() {
     return comps;
 }
 
-function printDevelopers() {
+function printDevelopers(developerList) {
     let devs = "INDEX   NAME   STATUS   TYPE\n";
-    for (let i = 0; i < developers.length; ++i) {
-        devs += `${i + 1}. ${developers[i].name} ${developers[i].status} ${developers[i].type}\n`;
+    for (let i = 0; i < developerList.length; ++i) {
+        devs += `${i + 1}. ${developerList[i].name} ${developerList[i].status} ${developerList[i].type}\n`;
     }
 
     return devs;
@@ -40,12 +40,12 @@ function getArrayMember(message, array) {
 }
 
 function getEnum(message, typeEnum) {
-    var input = prompt(message).toUpperCase();
+    var input = prompt(message);
     if (input === null) return null;
 
-    var inputEnum = typeEnum[input];
+    var inputEnum = typeEnum[input.toUpperCase()];
     if (inputEnum) return inputEnum;
 
     alert("Enter valid type!");
-    getEnum(message, typeEnum);
+    return getEnum(message, typeEnum);
 }
