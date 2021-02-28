@@ -1,32 +1,30 @@
 function addDeveloperAction() {
-    let developer = new Object();
+    let newDeveloper = new Object();
 
-    developer.name = prompt("Enter developer name:");
-    if (developer.name === null) return;
+    newDeveloper.name = prompt("Enter developer name:");
+    if (newDeveloper.name === null) return;
+    newDeveloper.status = getEnum("Enter developer status (employed, unemployed, freelancer):", developerStatus);
+    if (newDeveloper.status === null) return;
 
-
-    developer.status = getEnum("Enter developer status (employed, unemployed, freelancer):", developerStatus);
-    if (developer.status === null) return;
-
-    if (developer.status == developerStatus.EMPLOYED) {
+    if (newDeveloper.status == developerStatus.EMPLOYED) {
         let message = "Choose developer company index:\n" + printCompanies();
-        developer.company = getArrayMember(message, companies);
-        if (developer.company === null) return;
+        newDeveloper.company = getArrayMember(message, companies);
+        if (newDeveloper.company === null) return;
     }
-    else developer.company = null;
+    else newDeveloper.company = null;
 
-    developer.type = getEnum("Enter developer type (backend, frontend, fullstack):", developerType);
-    if (developer.type === null) return;
+    newDeveloper.type = getEnum("Enter developer type (backend, frontend, fullstack):", developerType);
+    if (newDeveloper.type === null) return;
 
-    developer.languages= [];
+    newDeveloper.languages = [];
 
-    addDeveloper(developer);
+    addDeveloper(newDeveloper);
 }
 
 function editDeveloperAction() {
     let developerEdited = new Object();
-    let message = "Choose developer index:\n" + printDevelopers(developers);
 
+    let message = "Choose developer index:\n" + printDevelopers(developers);
     let developerToEdit = getArrayMember(message, developers);
     if (developerToEdit === null) return;
 
@@ -54,7 +52,6 @@ function editDeveloperAction() {
 
 function deleteDeveloperAction() {
     let message = "Choose developer index:\n" + printDevelopers(developers);
-
     let developerToDelete = getArrayMember(message, developers);
     if (developerToDelete === null) return;
 
@@ -64,37 +61,38 @@ function deleteDeveloperAction() {
 
 function addDevLanguageAction() {
     let message = "Choose developer index:\n" + printDevelopers(developers);
-
     let developerToEdit = getArrayMember(message, developers);
     if (developerToEdit === null) return;
 
     let availableLanguages = languages.filter((language) =>
-     !developerToEdit.languages.some(devLanguage=>devLanguage.id==language.id));
+        !developerToEdit.languages.some(devLanguage => devLanguage.id == language.id));
 
     while (true) {
         let message = "Choose language index:\n" + printLanguages(availableLanguages);
-
         let addedLanguage = getArrayMember(message, availableLanguages);
         if (addedLanguage === null) return;
 
         addDevLanguage(developerToEdit.id, addedLanguage);
-        availableLanguages = availableLanguages.filter((language)=>language!==addedLanguage);
+        availableLanguages = availableLanguages.filter((language) => language !== addedLanguage);
     }
 }
 
-function deleteDevLanguageAction(){
+function deleteDevLanguageAction() {
     let message = "Choose developer index:\n" + printDevelopers(developers);
-
     let developerToEdit = getArrayMember(message, developers);
     if (developerToEdit === null) return;
 
-    while (true){
+    while (true) {
         let message = "Choose language index:\n" + printLanguages(developerToEdit.languages);
 
         let deletedLanguage = getArrayMember(message, developerToEdit.languages);
         if (deletedLanguage === null) return;
-
-        deleteDevLanguage(developerToEdit.id, deletedLanguage);
+        if (confirm(`Do you want to remove ${deletedLanguage.name}?`))
+            deleteDevLanguage(developerToEdit.id, deletedLanguage);
     }
 }
 
+function readDevelopers() {
+    let developersString = "Developer list: \n" + printDevelopers(developers);
+    alert(developersString);
+}

@@ -7,7 +7,6 @@ function printLanguages(languageList) {
     return langs;
 }
 
-
 function printCompanies() {
     let comps = "INDEX\tNAME\n";
     for (let i = 0; i < companies.length; ++i) {
@@ -20,12 +19,11 @@ function printCompanies() {
 function printDevelopers(developerList) {
     let devs = "INDEX   NAME   STATUS   TYPE\n";
     for (let i = 0; i < developerList.length; ++i) {
-        devs += `${i + 1}. ${developerList[i].name} ${developerList[i].status} ${developerList[i].type}\n`;
+        devs += `${i + 1}. ${developerList[i].name} ${developerList[i].status.toLowerCase()} ${developerList[i].type.toLowerCase()}\n`;
     }
 
     return devs;
 }
-
 
 function getArrayMember(message, array) {
     let input = prompt(message);

@@ -1,12 +1,11 @@
 function addCompany(name) {
-    let companyId = Math.max(0, Math.max.apply(Math, companies.map((company) => company.id)) + 1);
-    let company = {
-        id: companyId,
+    let newCompany = {
+        id: getNewId(companies),
         name: name,
         employees: []
     };
 
-    companies.push(company);
+    companies.push(newCompany);
     companies.sort(nameCompare);
 }
 
@@ -18,12 +17,12 @@ function editCompany(id, newName) {
 }
 
 function deleteCompany(id) {
+    companies = companies.filter((company) => company.id !== id);
+
     for (developer of developers) {
         if (developer.company?.id == id) {
             developer.company = null;
             developer.status = developerStatus.UNEMPLOYED;
         }
     }
-
-    companies = companies.filter((company) => company.id !== id);
 }

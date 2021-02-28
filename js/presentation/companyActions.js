@@ -1,12 +1,11 @@
-function addCompanyAction(){
+function addCompanyAction() {
     let name = prompt("Enter company name:");
-    if (name===null) return;
+    if (name === null) return;
     addCompany(name);
 }
 
-function editCompanyAction(){
+function editCompanyAction() {
     let message = "Choose company index:\n" + printCompanies();
-    
     let companyToEdit = getArrayMember(message, companies);
     if (companyToEdit === null) return;
 
@@ -16,10 +15,16 @@ function editCompanyAction(){
     editCompany(companyToEdit.id, newName);
 }
 
-function deleteCompanyAction(){
+function deleteCompanyAction() {
     let message = "Choose index of company to delete:\n" + printCompanies();
     let companyToDelete = getArrayMember(message, companies);
-    if (companyToDelete===null) return;
+    if (companyToDelete === null) return;
+
     let doesDelete = confirm(`Are you sure you want to delete ${companyToDelete.name}?`);
     if (doesDelete) deleteCompany(companyToDelete.id);
+}
+
+function readCompanies() {
+    let companiesString = "Companies list:\n" + printCompanies();
+    alert(companiesString);
 }
