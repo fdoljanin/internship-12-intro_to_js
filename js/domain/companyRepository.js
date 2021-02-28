@@ -10,13 +10,13 @@ function addCompany(name) {
     companies.sort(nameCompare);
 }
 
-function editCompany(id, newName){
-    let companyToEdit = companies.find((company)=>company.id===id);
+function editCompany(index, newName){
+    let companyToEdit = companies[index];
     companyToEdit.name = newName;
 
     companies.sort(nameCompare);
 }
 
 function deleteCompany(index) {
-    companies.splice(id,1);
+    companies.splice(index,1);
 }

@@ -9,8 +9,8 @@ function addLanguage(name){
     languages.sort(nameCompare);
 }
 
-function editLanguage(id, newName){
-    let languageToEdit = languages.find((language)=>language.id===id);
+function editLanguage(index, newName){
+    let languageToEdit = languages[index];
     languageToEdit.name = newName;
 
     languages.sort(nameCompare);
