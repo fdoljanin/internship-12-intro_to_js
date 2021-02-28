@@ -1,28 +1,40 @@
 function addDeveloper(developer) {
     let developerId = Math.max(0, Math.max.apply(Math, developers.map((developer)=>developer.id))+1);
     Object.assign(developer, {id:developerId});
-    
+    if (developer.company!==null)
+        developer.company.employees.push(developer);
     developers.push(developer);
     developers.sort(nameCompare);
 }
 
-function editDeveloper(index, editedDeveloper) {
-    let developerToEdit = developers[index];
+function editDeveloper(id, editedDeveloper) {
+    let developerToEdit = developers.find((developer)=>developer.id===id);
+    if (developerToEdit.company!==editedDeveloper.company){
+        if (developerToEdit.company)
+            developerToEdit.company.employees = developerToEdit.company.employees.filter((developer)=>developer.id!==id);
+        if (editedDeveloper.company)
+            editedDeveloper.company.employees.push(developerToEdit);
+    }
+
     Object.assign(developerToEdit, editedDeveloper);
 }
 
-function tryAddDevLanguage(developerIndex, languageIndex) {
-    let languageToAdd = Object.create(languages[languageIndex]);
-    let developerToEdit = developers.find(developers[developerIndex]);
-    if (!developerToEdit.languages.find((language)=>language.id==languageToAdd.id)===undefined)
-        return false;
+function deleteDeveloper(id){
+    developers = developers.filter((developer)=>developer.id!==id);
 
-    developerToEdit.languages.push(languageToAdd);
-    return true;
+    developerCompany = developers.find((developer)=>developer.id===id).company;
+    if (developerCompany)
+        developerCompany.employees = developerCompany.employees.filter((developer)=>developer.id!==id);
+
+}
+
+function addDevLanguage(developerId, language) {
+    let developerToEdit = developers.find((developer)=>developer.id===developerId);
+    developerToEdit.languages.push({...language});
 } 
 
-function deleteDevLanguage(developerIndex, languageIndex){
+function deleteDevLanguage(developerId, deletedLanguage){
     let developerToEdit = developers.find((developer)=>developer.id===developerId);
-    developerToEdit.languages.splice(languageIndex, 1);
+    developerToEdit.languages = developerToEdit.languages.filter((language)=>language.id!==deletedLanguage.id);
 }
 

@@ -7,18 +7,19 @@ function addCompanyAction(){
 function editCompanyAction(){
     let message = "Choose company index:\n" + printCompanies();
     
-    let inputIndex = getInputIndex(message, companies.length);
-    if (inputIndex === null) return;
+    let companyToEdit = getArrayMember(message, companies);
+    if (companyToEdit === null) return;
 
-    let newName = prompt("Enter new company name:");
+    let newName = prompt(`Enter new company name: (${companyToEdit.name})`);
     if (newName === null) return;
 
-    editCompany(inputIndex, newName);
+    editCompany(companyToEdit.id, newName);
 }
 
 function deleteCompanyAction(){
     let message = "Choose index of company to delete:\n" + printCompanies();
-    let inputIndex = getInputIndex(message, companies.length);
-    let doesDelete = confirm(`Are you sure you want to delete ${languages[inputIndex]}?`);
-    if (doesDelete) deleteCompany(inputIndex);
+    let companyToDelete = getArrayMember(message, companies);
+    if (companyToDelete===null) return;
+    let doesDelete = confirm(`Are you sure you want to delete ${companyToDelete.name}?`);
+    if (doesDelete) deleteCompany(companyToDelete.id);
 }
